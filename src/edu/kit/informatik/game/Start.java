@@ -121,20 +121,12 @@ public class Start {
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                 """);
 
-        boolean validInput = false;
+
         Player player = new Player(name, capital);
 
-        while (!validInput) {
-            System.out.println("How many players?");
-            String input = main.getInput();
-            if (!player.isPlayerCountValid(input)) {
-                System.out.println("Error: Invalid number");
-            } else {
-                playerCount = Integer.parseInt(input);
-                validInput = true;
-            }
-        }
-        validInput = false;
+        int playerCount = getValue("How many players?", 1, Integer.MAX_VALUE);
+
+        boolean validInput = false;
 
         while(!validInput) {
             name = "";
@@ -152,40 +144,56 @@ public class Start {
 
             validInput = true;
         }
-        validInput = false;
+        // validInput = false;
 
-        while(!validInput) {
-            System.out.println("With how much gold should each player start?");
-            String input3 = main.getInput();
-            if (!player.isCapitalValid(input3)) {
-                System.out.println("Error: Invalid number");
-            } else {
-                capital = Integer.parseInt(input3);
-                validInput = true;
+        // while(!validInput) {
+        //    System.out.println("With how much gold should each player start?");
+        //    String input3 = main.getInput();
+        //    if (!player.isCapitalValid(input3)) {
+        //        System.out.println("Error: Invalid number");
+        //    } else {
+        //        capital = Integer.parseInt(input3);
+        //        validInput = true;
+        //    }
+        //}
+        //validInput = false;
+//
+        //while(!validInput) {
+        //    System.out.println("With how much gold should a player win?");
+        //    String input4 = main.getInput();
+        //    if (!player.isWinGoldValid(input4, capital)) {
+        //        System.out.println("Error: Invalid amount of Gold");
+        //    } else {
+        //        winGold = Integer.parseInt(input4);
+        //        validInput = true;
+        //    }
+        //}
+        //validInput = false;
+//
+        //while (!validInput) {
+        //    System.out.println("Please enter the seed used to shuffle the tiles:");
+        //    String input5 = main.getInput();
+        //    if (!player.isSeedValid(input5)) {
+//
+        //    } else {
+        //        seed = Integer.parseInt(input5);
+        //        validInput = true;
+        //    }
+        //}
+    }
+
+    private int getValue(String message, int minValue, int maxValue) {
+        while (true) {
+            System.out.println(message);
+            String input = main.getInput();
+            try {
+                int result = Integer.parseInt(input);
+                if (result>= minValue && result <= maxValue) {
+                    return result;
+                }
             }
-        }
-        validInput = false;
-
-        while(!validInput) {
-            System.out.println("With how much gold should a player win?");
-            String input4 = main.getInput();
-            if (!player.isWinGoldValid(input4, capital)) {
-                System.out.println("Error: Invalid amount of Gold");
-            } else {
-                winGold = Integer.parseInt(input4);
-                validInput = true;
-            }
-        }
-        validInput = false;
-
-        while (!validInput) {
-            System.out.println("Please enter the seed used to shuffle the tiles:");
-            String input5 = main.getInput();
-            if (!player.isSeedValid(input5)) {
-                System.out.println("Error: Invalid number");
-            } else {
-                seed = Integer.parseInt(input5);
-                validInput = true;
+            catch(NumberFormatException e) {
+                System.out.println("Error: Invalid number format.");
             }
         }
     }

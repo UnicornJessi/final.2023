@@ -124,7 +124,7 @@ public class Start {
 
         Player player = new Player(name, capital);
 
-        int playerCount = getValue("How many players?", 1, Integer.MAX_VALUE);
+        playerCount = getValue("How many players?", 1, Integer.MAX_VALUE);
 
         boolean validInput = false;
 
@@ -144,42 +144,13 @@ public class Start {
 
             validInput = true;
         }
-        // validInput = false;
 
-        // while(!validInput) {
-        //    System.out.println("With how much gold should each player start?");
-        //    String input3 = main.getInput();
-        //    if (!player.isCapitalValid(input3)) {
-        //        System.out.println("Error: Invalid number");
-        //    } else {
-        //        capital = Integer.parseInt(input3);
-        //        validInput = true;
-        //    }
-        //}
-        //validInput = false;
-//
-        //while(!validInput) {
-        //    System.out.println("With how much gold should a player win?");
-        //    String input4 = main.getInput();
-        //    if (!player.isWinGoldValid(input4, capital)) {
-        //        System.out.println("Error: Invalid amount of Gold");
-        //    } else {
-        //        winGold = Integer.parseInt(input4);
-        //        validInput = true;
-        //    }
-        //}
-        //validInput = false;
-//
-        //while (!validInput) {
-        //    System.out.println("Please enter the seed used to shuffle the tiles:");
-        //    String input5 = main.getInput();
-        //    if (!player.isSeedValid(input5)) {
-//
-        //    } else {
-        //        seed = Integer.parseInt(input5);
-        //        validInput = true;
-        //    }
-        //}
+        capital = getValue("With how much gold should each player start?", 0, Integer.MAX_VALUE);
+
+        winGold = getValue("With how much gold should a player win?", 0, capital);
+
+        seed = getValue("Please enter the seed used to shuffle the tiles:", Integer.MIN_VALUE, Integer.MAX_VALUE);
+
     }
 
     private int getValue(String message, int minValue, int maxValue) {

@@ -12,7 +12,6 @@ public class Main {
     private int x;
     private int y;
     private int amount;
-    private String name;
     private int capital;
     private int playerCount;
     private int winGold;
@@ -71,8 +70,7 @@ public class Main {
         start = new Start(this);
         start.execute();
         playerCount = start.getPlayerCount();
-        name = start.getName();
-        playerNames = name.split(" ");
+        playerNames = start.getNames();
         capital = start.getCapital();
         winGold = start.getWinGold();
         seed = start.getSeed();
@@ -93,7 +91,7 @@ public class Main {
                 while (moves != 2) {
                     getCommand();
                     if (command.equals("show")) {
-                        if (!new Show(playerNames[i], inputSplit, this).execute()) {
+                        if (!new Show(players[i], inputSplit, this).execute()) {
                             System.out.println("Error: Command does not exist");
                         }
                     } else {
@@ -101,8 +99,8 @@ public class Main {
                         moves += 1;
                     }
                 }
-                players.getBarn().setSpoilCountdown(
-                        players.getBarn().spoilCountdown(players.getBarn().getSpoilCountdown()));
+                //players.getBarn().setSpoilCountdown(
+                  //      players.getBarn().spoilCountdown(players.getBarn().getSpoilCountdown()));
             }
         }
     }

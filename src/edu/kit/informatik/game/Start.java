@@ -4,7 +4,7 @@ import edu.kit.informatik.Player;
 
 public class Start {
 
-    private String name;
+    private String[] names;
     private int capital;
     private int playerCount;
     private int winGold;
@@ -24,17 +24,8 @@ public class Start {
      * get name
      * @return name
      */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * set name
-     * @param name player names
-     */
-
-    public void setName(String name) {
-        this.name = name;
+    public String[] getNames() {
+        return names;
     }
 
     /**
@@ -46,28 +37,11 @@ public class Start {
     }
 
     /**
-     * set start gold
-     * @param capital start gold
-     */
-
-    public void setCapital(int capital) {
-        this.capital = capital;
-    }
-
-    /**
      * get amount of players
      * @return player count
      */
     public int getPlayerCount() {
         return playerCount;
-    }
-
-    /**
-     * set amount of players
-     * @param playerCount player count
-     */
-    public void setPlayerCount(int playerCount) {
-        this.playerCount = playerCount;
     }
 
     /**
@@ -78,13 +52,6 @@ public class Start {
         return winGold;
     }
 
-    /**
-     * set amount needed for winning
-     * @param winGold gold needed for winning
-     */
-    public void setWinGold(int winGold) {
-        this.winGold = winGold;
-    }
 
     /**
      * get seed number for shuffle
@@ -92,14 +59,6 @@ public class Start {
      */
     public int getSeed() {
         return seed;
-    }
-
-    /**
-     * set seed number
-     * @param seed shuffle number
-     */
-    public void setSeed(int seed) {
-        this.seed = seed;
     }
 
     /**
@@ -122,34 +81,32 @@ public class Start {
                 """);
 
 
-        Player player = new Player(name, capital);
-
         playerCount = getValue("How many players?", 1, Integer.MAX_VALUE);
 
-        boolean validInput = false;
-
-        while(!validInput) {
-            name = "";
-            for (int i = 1; i <= playerCount; i++) {
-                System.out.println("Enter the name of player " + i + ":");
-                String input2 = main.getInput();
-
-                if (!player.isNameValid(input2)) {
-                    System.out.println("Error: Invalid name");
-                    i--;
-                } else {
-                    name += input2 + " ";
-                }
-            }
-
-            validInput = true;
-        }
+        names = getNamesInput();
 
         capital = getValue("With how much gold should each player start?", 0, Integer.MAX_VALUE);
 
         winGold = getValue("With how much gold should a player win?", 0, capital);
 
         seed = getValue("Please enter the seed used to shuffle the tiles:", Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private String[] getNamesInput() {
+        names = new String[playerCount];
+
+        for (int i = 1; i < playerCount; i++) {
+            System.out.println("Enter the name of player " + i + ":");
+            String input = main.getInput();
+
+            if (!input.matches("[A-Za-z]+")) {
+                System.out.println("Error: Invalid name");
+                i--;
+            } else {
+                names[i] = input;
+            }
+        }
+        return names;
 
     }
 

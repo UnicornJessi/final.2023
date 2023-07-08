@@ -29,7 +29,6 @@ public class Market {
             int remainingM = soledVegetable[2] - 2;
             int remainingC = soledVegetable[1] - 2;
         }
-
+        return 0;
     }
-
 }

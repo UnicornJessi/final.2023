@@ -38,5 +38,15 @@ public enum Vegetable {
         };
     }
 
+    public static Vegetable vegetableIndex2(int number) {
+
+        return switch (number) {
+            case 0 -> SALAD;
+            case 1 -> CARROT;
+            case 2 -> MUSHROOM;
+            case 3 -> TOMATO;
+            default -> null;
+        };
+    }
 
 }

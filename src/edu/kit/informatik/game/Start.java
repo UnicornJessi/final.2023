@@ -87,16 +87,17 @@ public class Start {
 
         capital = getValue("With how much gold should each player start?", 0, Integer.MAX_VALUE);
 
-        winGold = getValue("With how much gold should a player win?", 0, capital);
+        winGold = getValue("With how much gold should a player win?", capital, Integer.MAX_VALUE);
 
-        seed = getValue("Please enter the seed used to shuffle the tiles:", Integer.MIN_VALUE, Integer.MAX_VALUE);
+        seed = getValue("Please enter the seed used to shuffle the tiles:",
+                Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     private String[] getNamesInput() {
         names = new String[playerCount];
 
-        for (int i = 1; i < playerCount; i++) {
-            System.out.println("Enter the name of player " + i + ":");
+        for (int i = 0; i < playerCount; i++) {
+            System.out.println("Enter the name of player " + (i + 1) + ":");
             String input = main.getInput();
 
             if (!input.matches("[A-Za-z]+")) {
@@ -107,7 +108,6 @@ public class Start {
             }
         }
         return names;
-
     }
 
     private int getValue(String message, int minValue, int maxValue) {
@@ -118,6 +118,8 @@ public class Start {
                 int result = Integer.parseInt(input);
                 if (result>= minValue && result <= maxValue) {
                     return result;
+                } else {
+                    System.out.println("Error: Invalid number.");
                 }
             }
             catch(NumberFormatException e) {

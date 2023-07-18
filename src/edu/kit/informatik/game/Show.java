@@ -2,6 +2,8 @@ package edu.kit.informatik.game;
 
 import edu.kit.informatik.Player;
 import edu.kit.informatik.vegetable.Vegetable;
+import edu.kit.informatik.outputFormat;
+
 
 public class Show {
 
@@ -16,38 +18,28 @@ public class Show {
         this.main = main;
     }
 
+    private StringBuilder barnContent() {
+        StringBuilder stringBuilder = new StringBuilder();
+        storedVegetable = player.getBarn().getStoredVegetable();
+        int sum = storedVegetable[0] + storedVegetable[1] + storedVegetable[2] + storedVegetable[3];
+        for (int i = 0; i < 4; i++) {
+            if (storedVegetable[i] > 0) {
+                stringBuilder.append(Vegetable.vegetableIndex2(i).pluralVegetable()).
+                        append(": ").append(storedVegetable[i]).append("\n");
+            }
+        }
+        stringBuilder.append("Sum: ").append(sum).append("\nGold: ").append(player.getCapital());
+        return stringBuilder;
+    }
 
     public boolean execute() {
 
         if (inputSplit[0].equals("barn")) {
 
-            storedVegetable = player.getBarn().getStoredVegetable();
-            int sum = storedVegetable[0] + storedVegetable[1] + storedVegetable[2] + storedVegetable[3];
-
-            if (player.getBarn().getSpoilCountdown() != 0) {
-                System.out.println("Barn (spoils in " + player.getBarn().getSpoilCountdown() + " turns)");
-
-                if (storedVegetable[0] > 0) {
-                    System.out.println(Vegetable.SALAD.pluralVegetable() + ":\t\t" + storedVegetable[0]);
-                }
-                if (storedVegetable[1] > 0) {
-                    System.out.println(Vegetable.CARROT.pluralVegetable() + ":\t" + storedVegetable[1]);
-                }
-                if (storedVegetable[2] > 0) {
-                    System.out.println(Vegetable.MUSHROOM.pluralVegetable() + ":\t" + storedVegetable[2]);
-                }
-                if (storedVegetable[3] > 0) {
-                    System.out.println(Vegetable.TOMATO.pluralVegetable() + ":\t" + storedVegetable[3]);
-                }
-                System.out.println("------------\n"
-                        + "Sum:\t\t" + sum
-                        + "\n\nGold:\t\t" + player.getCapital());
-
-            } else {
-                System.out.println("Barn\n------------\n"
-                        + "Sum:\t\t" + sum
-                        + "\n\nGold:\t\t" + player.getCapital());
-            }
+            StringBuilder stringBuilder = barnContent();
+            int longest = new outputFormat().calculateLongestLine(stringBuilder);
+            stringBuilder = new outputFormat().whiteSpaces(longest, stringBuilder);
+            System.out.println(stringBuilder);
         } else {
             return false;
         }

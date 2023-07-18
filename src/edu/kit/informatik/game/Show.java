@@ -2,7 +2,7 @@ package edu.kit.informatik.game;
 
 import edu.kit.informatik.Player;
 import edu.kit.informatik.vegetable.Vegetable;
-import edu.kit.informatik.outputFormat;
+import edu.kit.informatik.OutputFormat;
 
 
 public class Show {
@@ -37,8 +37,8 @@ public class Show {
         if (inputSplit[0].equals("barn")) {
 
             StringBuilder stringBuilder = barnContent();
-            int longest = new outputFormat().calculateLongestLine(stringBuilder);
-            stringBuilder = new outputFormat().whiteSpaces(longest, stringBuilder);
+            int longest = new OutputFormat().calculateLongestLine(stringBuilder);
+            stringBuilder = new OutputFormat().whiteSpaces(longest, stringBuilder);
             System.out.println(stringBuilder);
         } else {
             return false;

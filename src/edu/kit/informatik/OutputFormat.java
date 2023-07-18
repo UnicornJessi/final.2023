@@ -1,5 +1,8 @@
 package edu.kit.informatik;
 
+/**
+ * Missing java doc!!
+ */
 public class OutputFormat {
 
 

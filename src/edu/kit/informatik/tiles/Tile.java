@@ -3,9 +3,6 @@ package edu.kit.informatik.tiles;
 import edu.kit.informatik.game.Main;
 
 public class Tile {
-
-    private int playerCount;
-    private int amount;
     private final Main main;
 
     public Tile(Main main) {
@@ -13,8 +10,7 @@ public class Tile {
     }
 
     public int amountOfTile(int amount) {
-        playerCount = main.start.getPlayerCount();
-        return amount * playerCount;
+        return amount * main.start.getPlayerCount();
     }
 
 

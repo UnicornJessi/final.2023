@@ -1,8 +1,14 @@
 package edu.kit.informatik.game;
 
 import edu.kit.informatik.Player;
+import edu.kit.informatik.vegetable.StoredVegetable;
 import edu.kit.informatik.vegetable.Vegetable;
 import edu.kit.informatik.OutputFormat;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Show {
@@ -19,11 +25,19 @@ public class Show {
 
     private String barnVegetables() {
         StringBuilder stringBuilder = new StringBuilder();
-        int[] storedVegetable = player.getBarn().getStoredVegetable();
-        for (int i = 0; i < 4; i++) {
-            if (storedVegetable[i] > 0) {
-                stringBuilder.append(Vegetable.vegetableIndex2(i).pluralVegetable()).
-                        append(": ").append(storedVegetable[i]).append("\n");
+        int[] storedVegetableAmount = player.getBarn().getStoredVegetable();
+
+        List<StoredVegetable> storedVegetables = new ArrayList<StoredVegetable>();
+        for (Vegetable v : Vegetable.values()) {
+            storedVegetables.add(new StoredVegetable(v, storedVegetableAmount[v.vegetableIndex()]));
+        }
+
+        Collections.sort(storedVegetables);
+
+        for (StoredVegetable v: storedVegetables) {
+            if (storedVegetableAmount[v.getAmount()] > 0) {
+                stringBuilder.append(v.getVegetable().pluralVegetable()).
+                        append(": ").append(v.getAmount()).append("\n");
             }
         }
 
@@ -33,10 +47,8 @@ public class Show {
     private String barnStats() {
         int[] storedVegetable = player.getBarn().getStoredVegetable();
         int sum = storedVegetable[0] + storedVegetable[1] + storedVegetable[2] + storedVegetable[3];
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Sum: ").append(sum).append("\nGold: ").append(player.getCapital());
 
-        return stringBuilder.toString();
+        return "Sum: " + sum + "\n\nGold: " + player.getCapital();
     }
 
     public boolean execute() {
@@ -47,10 +59,14 @@ public class Show {
             String stats = barnStats();
             int longest = OutputFormat.calculateLongestLine(vegetables + stats);
             String part1 = OutputFormat.whiteSpaces(longest, vegetables);
+
             String part2 = "-".repeat(longest)+"\n";
             String part3 = OutputFormat.whiteSpaces(longest, stats);
 
             System.out.println(part1 + part2 + part3);
+        } else if (inputSplit[0].equals("market")) {
+
+
         } else {
             return false;
         }

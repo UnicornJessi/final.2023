@@ -10,6 +10,14 @@ public class StoredVegetable implements Comparable<StoredVegetable>{
         this.amount = amount;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public Vegetable getVegetable() {
+        return vegetable;
+    }
+
     @Override
     public int compareTo(StoredVegetable o) {
 

@@ -24,6 +24,6 @@ public class Player {
         return capital;
     }
     public void setCapital(int capital) {
-        this.capital = capital;
+        this.capital = getCapital() + capital;
     }
 }

@@ -9,8 +9,6 @@ public class Main {
     private String command;
     private String[] inputSplit;
     private String[] playerNames;
-    private int x;
-    private int y;
     private int amount;
     private int capital;
     private int playerCount;
@@ -94,13 +92,14 @@ public class Main {
                         if (!new Show(players[i], inputSplit, this).execute()) {
                             System.out.println("Error: Command does not exist");
                         }
+                    } else if (command.equals("sell")) {
+                        if (!new Sell(this, players[i], inputSplit).execute()) {
+                            System.out.println("Error: Command does not exist");
+                        }
                     } else {
                         System.out.println("Error: Command does not exist");
-                        moves += 1;
                     }
                 }
-                //players.getBarn().setSpoilCountdown(
-                  //      players.getBarn().spoilCountdown(players.getBarn().getSpoilCountdown()));
             }
         }
     }

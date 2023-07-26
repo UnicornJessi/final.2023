@@ -6,7 +6,6 @@ import edu.kit.informatik.vegetable.Vegetable;
 import edu.kit.informatik.OutputFormat;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,12 +63,12 @@ public class Show {
             String part3 = OutputFormat.whiteSpaces(longest, stats);
 
             System.out.println(part1 + part2 + part3);
+
+            return true;
         } else if (inputSplit[0].equals("market")) {
 
-
-        } else {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

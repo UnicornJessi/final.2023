@@ -19,7 +19,6 @@ public class Main {
     public Player[] players;
     public Start start;
     private final Scanner scanner;
-
     /**
      * In and Output handler.
      *
@@ -89,13 +88,12 @@ public class Main {
                 while (moves != 2) {
                     getCommand();
                     if (command.equals("show")) {
-                        if (!new Show(players[i], inputSplit, this).execute()) {
+                        if (!new Show(players[i], inputSplit).execute()) {
                             System.out.println("Error: Command does not exist");
                         }
                     } else if (command.equals("sell")) {
-                        if (!new Sell(this, players[i], inputSplit).execute()) {
-                            System.out.println("Error: Command does not exist");
-                        }
+                        new Sell(players[i], inputSplit).execute();
+                        moves++;
                     } else {
                         System.out.println("Error: Command does not exist");
                     }

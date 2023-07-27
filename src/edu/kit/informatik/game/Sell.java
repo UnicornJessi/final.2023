@@ -8,15 +8,13 @@ import java.util.Arrays;
 
 public class Sell {
     private int[] soledVegetable = new int[Vegetable.AMOUNT_OF_VEGETABLE];
-    private String[] inputSplit;
-    private Player player;
-    private final Main main;
+    private final String[] inputSplit;
+    private final Player player;
     int gold = 0;
     int sumVeg = 0;
 
-    public Sell(Main main, Player player, String[] inputSplit) {
+    public Sell(Player player, String[] inputSplit) {
         Arrays.fill(soledVegetable,0);
-        this.main = main;
         this.player = player;
         this.inputSplit = inputSplit;
     }
@@ -25,9 +23,13 @@ public class Sell {
         this.soledVegetable = soledVegetable;
     }
 
+    public int[] getSoledVegetable() {
+        return soledVegetable;
+    }
+
     private void sellVegetable(int[] prices, int[] storedVegetable, int i) {
         if (storedVegetable[i] > 0) {
-            gold += prices[0];
+            gold += prices[i];
             sumVeg++;
             storedVegetable[i]--;
             soledVegetable[i]++;
@@ -42,14 +44,11 @@ public class Sell {
             storedVegetable[i] = 0;
         }
     }
+    //TODO: Was wenn kein vegetable nach sell?
 
-    public boolean execute() {
+    public void execute() {
         Market market = new Market();
-        int[] priceMushCar = market.mushroomCarrotPrice(soledVegetable); //0 mush 1 car
-        int[] priceSalTom = market.saladTomatoPrice(soledVegetable); //0 tom 1 sal
-        int[] prices = new int[priceSalTom.length + priceMushCar.length]; //0 mush 1 car 2 tom 3 sal
-        System.arraycopy(priceMushCar, 0, prices, 0, priceMushCar.length);
-        System.arraycopy(priceSalTom, 0, prices,priceMushCar.length, priceSalTom.length);
+        int[] prices = market.price(soledVegetable); //0 mush 1 car 2 sal 3 tom
         int[] storedVegetable = player.getBarn().getStoredVegetable();
 
         if (inputSplit[0].equals("all")) {
@@ -66,8 +65,8 @@ public class Sell {
                 switch (s) {
                     case "mushroom" -> sellVegetable(prices, storedVegetable, 0);
                     case "carrot" -> sellVegetable(prices, storedVegetable, 1);
-                    case "tomato" -> sellVegetable(prices, storedVegetable, 2);
-                    case "salad" -> sellVegetable(prices, storedVegetable, 3);
+                    case "salad" -> sellVegetable(prices, storedVegetable, 2);
+                    case "tomato" -> sellVegetable(prices, storedVegetable, 3);
                 }
             }
         }
@@ -79,6 +78,5 @@ public class Sell {
         } else {
             System.out.println("You have sold " + sumVeg + " vegetables for " + gold + " gold.");
         }
-        return true;
     }
 }

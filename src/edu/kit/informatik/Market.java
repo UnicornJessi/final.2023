@@ -20,19 +20,19 @@ public class Market {
         saladPrice = tomSalChart[2][1];
     }
 
-    public int[] mushroomCarrotPrice(int[] soledVegetable) {
-        // 2 carrot und 3 mushroom
+    public int[] price(int[] soledVegetable) {
+        // 0 mush 1 car 2 sal 3 tom
         int j = 1;
 
-        if (soledVegetable[2] - soledVegetable[1] >= 2) {
-            for (int i = 2; i <= soledVegetable[2] - soledVegetable[1]; i++) {
+        if (soledVegetable[0] - soledVegetable[1] >= 2) {
+            for (int i = 2; i <= soledVegetable[0] - soledVegetable[1]; i++) {
                 mushroomPrice = mushCarChart[2 + j][0];
                 carrotPrice = mushCarChart[2 + j][1];
                 i = i + 2;
                 j++;
             }
-        } else if (soledVegetable[1] - soledVegetable[2] >= 2) {
-            for (int i = 2; i <= soledVegetable[1] - soledVegetable[2]; i++) {
+        } else if (soledVegetable[1] - soledVegetable[0] >= 2) {
+            for (int i = 2; i <= soledVegetable[1] - soledVegetable[0]; i++) {
                 mushroomPrice = mushCarChart[2 - j][0];
                 carrotPrice = mushCarChart[2 - j][1];
                 i = i + 2;
@@ -40,22 +40,17 @@ public class Market {
             }
         }
 
-        return new int[] {mushroomPrice, carrotPrice};
-    }
+        j = 1;
 
-    public int[] saladTomatoPrice(int[] soledVegetable) {
-        // 1 salad und 4 tomato
-        int j = 1;
-
-        if (soledVegetable[3] - soledVegetable[0] >= 2) {
-            for (int i = 2; i <= soledVegetable[3] - soledVegetable[0]; i++) {
+        if (soledVegetable[3] - soledVegetable[2] >= 2) {
+            for (int i = 2; i <= soledVegetable[3] - soledVegetable[2]; i++) {
                 tomatoPrice = mushCarChart[2 + j][0];
                 saladPrice = mushCarChart[2 + j][1];
                 i = i + 2;
                 j++;
             }
-        } else if (soledVegetable[0] - soledVegetable[3] >= 2) {
-            for (int i = 2; i <= soledVegetable[0] - soledVegetable[3]; i++) {
+        } else if (soledVegetable[2] - soledVegetable[3] >= 2) {
+            for (int i = 2; i <= soledVegetable[2] - soledVegetable[3]; i++) {
                 tomatoPrice = mushCarChart[2 - j][0];
                 saladPrice = mushCarChart[2 - j][1];
                 i = i + 2;
@@ -63,7 +58,7 @@ public class Market {
             }
         }
 
-        return new int[] {saladPrice, tomatoPrice};
+        return new int[] {mushroomPrice, carrotPrice, saladPrice, tomatoPrice};
     }
 
 }

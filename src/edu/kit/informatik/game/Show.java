@@ -1,5 +1,6 @@
 package edu.kit.informatik.game;
 
+import edu.kit.informatik.Market;
 import edu.kit.informatik.Player;
 import edu.kit.informatik.vegetable.StoredVegetable;
 import edu.kit.informatik.vegetable.Vegetable;
@@ -12,14 +13,12 @@ import java.util.List;
 
 public class Show {
 
-    private Player player;
-    private String[] inputSplit;
-    private final Main main;
+    private final Player player;
+    private final String[] inputSplit;
 
-    public Show(Player player, String[] inputSplit, Main main) {
+    public Show(Player player, String[] inputSplit) {
         this.player = player;
         this.inputSplit = inputSplit;
-        this.main = main;
     }
 
     private String barnVegetables() {
@@ -34,12 +33,20 @@ public class Show {
         Collections.sort(storedVegetables);
 
         for (StoredVegetable v: storedVegetables) {
-            if (storedVegetableAmount[v.getAmount()] > 0) {
+            if (storedVegetableAmount[v.getVegetable().vegetableIndex()] > 0) {
                 stringBuilder.append(v.getVegetable().pluralVegetable()).
                         append(": ").append(v.getAmount()).append("\n");
             }
         }
 
+        return stringBuilder.toString();
+    }
+    private String marketPrices(int[] prices, int[] soledVegetable) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < soledVegetable.length; i++) {
+            stringBuilder.append(Vegetable.vegetableIndex2(i).pluralVegetable()).
+                    append(": ").append(prices[i]).append("\n");
+        }
         return stringBuilder.toString();
     }
 
@@ -66,6 +73,16 @@ public class Show {
 
             return true;
         } else if (inputSplit[0].equals("market")) {
+
+            Sell sell = new Sell(player, inputSplit);
+            int[] soledVegetable = sell.getSoledVegetable();
+
+            Market market = new Market();
+            int[] prices = market.price(soledVegetable);
+            String output = marketPrices(prices, soledVegetable);
+            int longest = OutputFormat.calculateLongestLine(output);
+            output = OutputFormat.whiteSpaces(longest, output);
+            System.out.println(output);
 
             return true;
         }
